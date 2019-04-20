@@ -12,7 +12,7 @@
 0110:          JUMP addr
 0111:     BRANCH.EQ addr
 1000:         INPUT reg, dev
-1001:        OUTPUT reg, def
+1001:        OUTPUT reg, dev
 1010:    COMPARE.EQ reg, reg
 1011: 
 1100: 
