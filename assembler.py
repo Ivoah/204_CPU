@@ -11,12 +11,15 @@ instructions = {
     'branch.eq': [0b0111, 'addr'],
     'input': [0b1000, 'dest', 'dev'],
     'output': [0b1001, 'op1', 'dev'],
-    'compare.eq': [0b1010, 'op1', 'op2']
+    'compare.eq': [0b1010, 'op1', 'op2'],
+    'loadp': [0b1011, 'dest', 'addr'],
+    'storep': [0b1100, 'op1', 'addr'],
+    'halt': [0b1111]
 }
 
 macros = {
-    '.str': lambda args: [ord(c) for c in ' '.join(args)],
-    '.byte': lambda args: [parsenum(n) for n in args]
+    '.str': lambda *args: [ord(c) for c in ' '.join(args)] + [0],
+    '.bytes': lambda *args: [parsenum(n) for n in args]
 }
 
 registers = {
@@ -37,7 +40,9 @@ packing = {
 }
 
 def parsenum(n):
-    if n.startswith('0x'):
+    if n in labels.keys():
+        return labels[n]
+    elif n.startswith('0x'):
         return int(n[2:], 16)
     elif n.startswith('0b'):
         return int(n[2:], 2)
@@ -69,15 +74,11 @@ with open(sys.argv[2], 'wb') as output:
                 arg_type = instructions[line[0]][i]
                 if arg_type in ['dest', 'op1', 'op2']:
                     v = registers[line[i]]
-                elif arg_type in ['num', 'dev']:
+                elif arg_type in ['num', 'dev', 'addr']:
                     v = parsenum(line[i])
-                elif arg_type in ['addr']:
-                    if line[i] in labels.keys():
-                        v = labels[line[i]]
-                    else:
-                        v = parsenum(line[i])
 
                 instr |= v << packing[instructions[line[0]][i]]
             output.write(instr.to_bytes(2, 'big'))
+
         elif line[0] in macros.keys():
             output.write(bytes(macros[line[0]](*line[1:])))

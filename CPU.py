@@ -6,6 +6,8 @@ def bit_not(n, numbits=8):
 
 class CPU:
     def __init__(self):
+        self.running = False
+
         self.pc = 0
         self.registers = [0, 0, 0, 0]
         self.eq = False
@@ -25,7 +27,12 @@ class CPU:
             self._branch_eq,
             self._input,
             self._output,
-            self._compare_eq
+            self._compare_eq,
+            self._loadp,
+            self._storep,
+            None,
+            None,
+            self._halt
         ]
     
     def load(self, filename):
@@ -53,7 +60,8 @@ class CPU:
         self.jumptable[instr['op']](**instr)
     
     def run(self):
-        while True:
+        self.running = True
+        while self.running:
             self.step()
 
     def _add(self, dest, op1, op2, **_):
@@ -89,6 +97,15 @@ class CPU:
     
     def _compare_eq(self, op1, op2, **_):
         self.eq = self.registers[op1] == self.registers[op2]
+    
+    def _loadp(self, dest, addr, **_):
+        self.registers[dest] = self.memory[self.memory[addr]]
+    
+    def _storep(self, op1, addr, **_):
+        self.memory[self.memory[addr]] = self.registers[op1]
+    
+    def _halt(self, **_):
+        self.running = False
 
 if __name__ == '__main__':
     import sys
