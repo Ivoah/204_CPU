@@ -42,6 +42,21 @@ packing = {
 def parsenum(n):
     if n in labels.keys():
         return labels[n]
+    elif n.startswith('\''):
+        if len(n) == 4 and n[1] == '\\':
+            return {
+                '\\': ord('\\'),
+                'a': ord('\a'),
+                'b': ord('\b'),
+                'f': ord('\f'),
+                'n': ord('\n'),
+                'r': ord('\r'),
+                't': ord('\t'),
+            }[n[2]]
+        elif len(n) == 3:
+            return ord(n[1])
+        else:
+            raise ValueError(f'Malformed character {n}')
     elif n.startswith('0x'):
         return int(n[2:], 16)
     elif n.startswith('0b'):
