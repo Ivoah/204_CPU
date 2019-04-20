@@ -1,19 +1,19 @@
 [instr:4][dest:2][op1:2] [op2:2][xx:6]
 [instr:4][dest:2][op1:2] [num:8]
-[instr:4][dest:2][xx:2] [addr:8]
-[instr:4][dest:2][xx:2] [dev:8]
+[instr:4][dest:2][op1:2] [addr:8]
+[instr:4][dest:2][op1:2] [dev:8]
 
-0000:           ADD reg, reg, reg
-0001:          LOAD reg, addr
-0010:         STORE reg, addr
-0011:          ADDI reg, reg, num
-0100:           AND reg, reg, reg
-0101:           NOT reg, reg
+0000:           ADD dest, op1, op2
+0001:          LOAD dest, addr
+0010:         STORE op1, addr
+0011:          ADDI dest, op1, num
+0100:           AND dest, op1, op2
+0101:           NOT dest, op1
 0110:          JUMP addr
 0111:     BRANCH.EQ addr
-1000:         INPUT reg, dev
-1001:        OUTPUT reg, dev
-1010:    COMPARE.EQ reg, reg
+1000:         INPUT dest, dev
+1001:        OUTPUT op1, dev
+1010:    COMPARE.EQ op1, op2
 1011: 
 1100: 
 1101: 
