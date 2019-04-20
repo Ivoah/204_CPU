@@ -79,6 +79,10 @@ with open(sys.argv[1]) as source:
             pc += len(macros[line[0]](*line[1:]))
         elif line[0].endswith(':'):
             labels[line[0][:-1]] = pc
+        
+        if pc > 256:
+            print('Program exceeded available memory')
+            sys.exit(0)
 
 with open(sys.argv[2], 'wb') as output:
     for line in program:
