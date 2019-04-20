@@ -69,4 +69,3 @@ class VideoDev:
             pygame.display.flip()
             self.x = None
             self.y = None
-l
