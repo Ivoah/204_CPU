@@ -1,3 +1,6 @@
+import pygame
+import pygame.locals
+
 from devices import *
 
 # from https://stackoverflow.com/a/31151236/3552541
@@ -15,6 +18,7 @@ class CPU:
         self.memory = [0 for i in range(256)]
         self.devices = [NullDev() for i in range(256)]
         self.devices[0] = IODev()
+        self.devices[1] = VideoDev()
 
         self.jumptable = [
             self._add,
@@ -62,6 +66,9 @@ class CPU:
     def run(self):
         self.running = True
         while self.running:
+            for event in pygame.event.get():
+                if event.type == pygame.locals.QUIT:
+                    self.running = False
             self.step()
 
     def _add(self, dest, op1, op2, **_):

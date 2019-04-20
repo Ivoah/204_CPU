@@ -1,4 +1,5 @@
 import sys
+import pygame
 
 # from http://code.activestate.com/recipes/134892/
 class _Getch:
@@ -46,3 +47,26 @@ class IODev:
     def write(self, data):
         sys.stdout.write(chr(data))
         sys.stdout.flush()
+
+class VideoDev:
+    def __init__(self):
+        self.window = pygame.display.set_mode((256, 256))
+        pygame.display.flip()
+        self.x = None
+        self.y = None
+    
+    def read(self):
+        return 0
+    
+    def write(self, data):
+        if self.x is None:
+            self.x = data
+        elif self.y is None:
+            self.y = data
+        else:
+            c = pygame.Color((data >> 5)*36, (data >> 2 & 0b111)*36, (data & 0b11)*85)
+            self.window.set_at((self.x, self.y), c)
+            pygame.display.flip()
+            self.x = None
+            self.y = None
+l
