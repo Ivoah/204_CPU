@@ -1,5 +1,6 @@
 import sys
 import pygame
+import pygame.locals
 
 # from http://code.activestate.com/recipes/134892/
 class _Getch:
@@ -59,6 +60,9 @@ class VideoDev:
         return 0
     
     def write(self, data):
+        for event in pygame.event.get():
+                if event.type == pygame.locals.QUIT:
+                    sys.exit(0)
         if self.x is None:
             self.x = data
         elif self.y is None:
