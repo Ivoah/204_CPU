@@ -45,7 +45,6 @@ def parsenum(n):
     elif n.startswith('\''):
         if len(n) == 4 and n[1] == '\\':
             return {
-                '\\': ord('\\'),
                 'a': ord('\a'),
                 'b': ord('\b'),
                 'f': ord('\f'),
