@@ -1,6 +1,6 @@
 import sys
 import pygame
-import pygame.locals
+from pygame.locals import *
 
 # from http://code.activestate.com/recipes/134892/
 class _Getch:
@@ -55,13 +55,22 @@ class VideoDev:
         pygame.display.flip()
         self.x = None
         self.y = None
+        self.pressed = None
     
     def read(self):
-        return 0
+        for event in pygame.event.get():
+                if event.type == QUIT:
+                    sys.exit(0)
+                elif event.type == KEYDOWN and event.key <= 255:
+                    self.pressed = event.key
+                elif event.type == KEYUP and event.key <= 255:
+                    self.pressed = None
+        
+        return self.pressed or 0
     
     def write(self, data):
         for event in pygame.event.get():
-                if event.type == pygame.locals.QUIT:
+                if event.type == QUIT:
                     sys.exit(0)
         if self.x is None:
             self.x = data

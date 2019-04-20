@@ -14,6 +14,8 @@ instructions = {
     'compare.eq': [0b1010, 'op1', 'op2'],
     'loadp': [0b1011, 'dest', 'op1'],
     'storep': [0b1100, 'op1', 'op2'],
+    'loadi': [0b1101, 'dest', 'num'],
+    'comparei.eq': [0b1110, 'op1', 'num'],
     'halt': [0b1111]
 }
 
@@ -63,6 +65,7 @@ def parsenum(n):
     else:
         return int(n)
 
+
 labels = {}
 program = []
 
@@ -70,6 +73,8 @@ with open(sys.argv[1]) as source:
     pc = 0
     for line in source:
         line = line.strip().split()
+
+        if not line: continue
 
         if line[0] in instructions.keys():
             program.append(line)
@@ -83,6 +88,8 @@ with open(sys.argv[1]) as source:
         if pc > 256:
             print('Program exceeded available memory')
             sys.exit(0)
+            
+print(f'Program size: {pc} bytes')
 
 with open(sys.argv[2], 'wb') as output:
     for line in program:

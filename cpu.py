@@ -31,8 +31,8 @@ class CPU:
             self._compare_eq,
             self._loadp,
             self._storep,
-            None,
-            None,
+            self._loadi,
+            self._comparei_eq,
             self._halt
         ]
     
@@ -105,6 +105,12 @@ class CPU:
     def _storep(self, op1, op2, **_):
         self.memory[self.registers[op2]] = self.registers[op1]
     
+    def _loadi(self, dest, num, **_):
+        self.registers[dest] = num
+
+    def _comparei_eq(self, op1, num, **_):
+        self.eq = self.registers[op1] == num
+
     def _halt(self, **_):
         self.running = False
 

@@ -16,6 +16,6 @@
 1010:    COMPARE.EQ op1, op2
 1011:         LOADP dest, op1
 1100:        STOREP op1, op2
-1101:
-1110:
+1101:         LOADI dest, num
+1110:   COMPAREI.EQ op1, num
 1111:          HALT
