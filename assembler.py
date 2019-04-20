@@ -50,7 +50,7 @@ def parsenum(n):
                 'f': ord('\f'),
                 'n': ord('\n'),
                 'r': ord('\r'),
-                't': ord('\t'),
+                't': ord('\t')
             }[n[2]]
         elif len(n) == 3:
             return ord(n[1])
