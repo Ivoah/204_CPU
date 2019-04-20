@@ -19,6 +19,8 @@ def _GetchUnix():
     try:
         tty.setraw(sys.stdin.fileno())
         ch = sys.stdin.read(1)
+        if ch == '\x03':
+            raise KeyboardInterrupt
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
