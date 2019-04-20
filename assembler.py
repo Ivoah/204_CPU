@@ -12,8 +12,8 @@ instructions = {
     'input': [0b1000, 'dest', 'dev'],
     'output': [0b1001, 'op1', 'dev'],
     'compare.eq': [0b1010, 'op1', 'op2'],
-    'loadp': [0b1011, 'dest', 'addr'],
-    'storep': [0b1100, 'op1', 'addr'],
+    'loadp': [0b1011, 'dest', 'op1'],
+    'storep': [0b1100, 'op1', 'op2'],
     'halt': [0b1111]
 }
 

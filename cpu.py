@@ -98,11 +98,11 @@ class CPU:
     def _compare_eq(self, op1, op2, **_):
         self.eq = self.registers[op1] == self.registers[op2]
     
-    def _loadp(self, dest, addr, **_):
-        self.registers[dest] = self.memory[self.memory[addr]]
+    def _loadp(self, dest, op1, **_):
+        self.registers[dest] = self.memory[self.registers[op1]]
     
-    def _storep(self, op1, addr, **_):
-        self.memory[self.memory[addr]] = self.registers[op1]
+    def _storep(self, op1, op2, **_):
+        self.memory[self.registers[op2]] = self.registers[op1]
     
     def _halt(self, **_):
         self.running = False
