@@ -1,7 +1,7 @@
-    addi r1 r1 hello
+    loadi r1 hello
 loop:
     loadp r0 r1
-    compare.eq r0 r2
+    comparei.eq r0 0
     branch.eq quit
     output r0 0x00
     addi r1 r1 1
