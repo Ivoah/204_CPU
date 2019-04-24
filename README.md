@@ -13,6 +13,13 @@ Colors are in RGB332 format, with the first three bits assigned to red, the seco
 
 Look at [devices.py](devices.py) to add more devices.
 
+## Requirements
+You will need Python 3.6+ and pygame in order to run the emulator and assembler.
+
+The latest version of python can be obtained from [the python website](https://www.python.org/downloads/)
+
+Once python is installed pygame can be installed with pip: `pip install pygame`
+
 ## Assembling
 `python3 assembler.py <input.asm> <output.204>`
 
