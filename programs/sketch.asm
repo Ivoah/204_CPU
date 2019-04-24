@@ -2,17 +2,13 @@
     addi r1 r1 127
 loop:
     input r2 0x00
-    load r3 w
-    compare.eq r2 r3
+    comparei.eq r2 'w'
     branch.eq up
-    load r3 s
-    compare.eq r2 r3
+    comparei.eq r2 's'
     branch.eq down
-    load r3 a
-    compare.eq r2 r3
+    comparei.eq r2 'a'
     branch.eq left
-    load r3 d
-    compare.eq r2 r3
+    comparei.eq r2 'd'
     branch.eq right
     jump print
 up:
@@ -34,11 +30,3 @@ print:
     jump loop
 color:
     .bytes 0b00011100
-w:
-    .bytes 'w'
-s:
-    .bytes 's'
-a:
-    .bytes 'a'
-d:
-    .bytes 'd'
